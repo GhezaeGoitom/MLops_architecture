@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path('src').parent.parent))  
 
+from src.components.model_train import ModelTrainer
 from src.exception import CustomException
 from src.logger import logging
 from src.components.data_transformation import DataTransformation
@@ -59,4 +60,8 @@ if __name__ == "__main__":
     train_data, test_data = obj.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)               
+    train_arr, test_arr, _ =data_transformation.initiate_data_transformation(train_data,test_data)
+
+    modelTrainer = ModelTrainer()
+    train_result = modelTrainer.initiate_model_trainer(train_arr, test_arr)      
+    print(train_result)         
